@@ -26,7 +26,7 @@ export interface LoadedConfig {
 }
 
 const MISSING_MESSAGE =
-  "Run `npx @oth/tasks init` to connect this repo to OTHCanva.";
+  "Run `npx oth-tasks init` to connect this repo to OTHCanva.";
 
 function credentialsPath(): string {
   return join(homedir(), ".othcanva", "credentials.json");

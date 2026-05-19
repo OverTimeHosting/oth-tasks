@@ -33,13 +33,12 @@ export async function patchMcpConfig(repoRoot: string): Promise<void> {
   const existing = (await readJsonIfExists(p)) ?? {};
   const servers = existing.mcpServers ?? {};
 
-  // Use the `oth` binary directly — it resolves @oth/mcp-server at runtime
-  // via createRequire and spawns the stdio MCP. Requires `oth` to be on PATH
-  // (npm link / pnpm setup + link / global install). Once @oth/tasks is
-  // published to npm, swap this back to `npx -y @oth/tasks mcp`.
+  // Resolve the MCP server through npx so the entry works on any machine
+  // that has the published `oth-tasks` package available — no global install
+  // required. `-y` auto-accepts the package fetch prompt.
   servers[MCP_SERVER_KEY] = {
-    command: "oth",
-    args: ["mcp"],
+    command: "npx",
+    args: ["-y", "oth-tasks", "mcp"],
   };
 
   const next: McpConfigFile = {

@@ -1,5 +1,5 @@
 {
-  "name": "@oth/tasks",
+  "name": "oth-tasks",
   "version": "0.1.0",
   "description": "OTHCanva CLI and MCP server. Connects a GitHub repo to the OTHCanva task tracker and exposes task tools to AI agents over MCP.",
   "type": "module",

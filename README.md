@@ -1,4 +1,4 @@
-# @oth/tasks
+# oth-tasks
 
 CLI + MCP server that connects a GitHub repo to **[OTHCanva](https://github.com/OverTimeHosting/OTHCanva)**, OverTimeHosting's internal task tracker, and exposes task tools to AI agents over MCP.
 
@@ -8,9 +8,9 @@ Run it once in any repo your AI assistants work in, and the agent can create tas
 
 ```sh
 # global (recommended for dev)
-npm install -g @oth/tasks
+npm install -g oth-tasks
 # or run on demand
-npx @oth/tasks init
+npx oth-tasks init
 ```
 
 ## Quick start

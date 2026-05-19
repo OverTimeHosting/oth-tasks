@@ -19,7 +19,7 @@ export async function startMcpServer(): Promise<void> {
   }
 
   const server = new McpServer({
-    name: "@oth/tasks",
+    name: "oth-tasks",
     version: "0.1.0",
   });
 

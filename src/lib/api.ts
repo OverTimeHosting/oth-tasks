@@ -4,7 +4,7 @@
 // short-lived `code` is itself the proof). Everything else is bearer-auth'd
 // with the per-repo token we stored in ~/.othcanva/credentials.json.
 
-export const DEFAULT_API_BASE = "https://canva.overtimehosting.com";
+export const DEFAULT_API_BASE = "https://canva.oth.zone";
 
 export interface ApiOptions {
   apiBase: string;

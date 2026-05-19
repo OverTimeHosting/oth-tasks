@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// @oth/tasks — CLI entry point.
+// oth-tasks — CLI entry point.
 
 import { Command } from "commander";
 import { runInit } from "./commands/init.js";
@@ -31,7 +31,7 @@ program
   .version("0.1.0")
   .option(
     "--api-base <url>",
-    "Override the OTHCanva API base URL (default: https://canva.overtimehosting.com or $OTH_API_BASE)",
+    "Override the OTHCanva API base URL (default: https://canva.oth.zone or $OTH_API_BASE)",
   );
 
 program
