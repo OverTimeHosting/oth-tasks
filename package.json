@@ -1,6 +1,6 @@
 {
   "name": "oth-tasks",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "OTHCanva CLI and MCP server. Connects a GitHub repo to the OTHCanva task tracker and exposes task tools to AI agents over MCP.",
   "type": "module",
   "license": "MIT",
