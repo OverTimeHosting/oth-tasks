@@ -1,12 +1,31 @@
 #!/usr/bin/env node
 // oth-tasks — CLI entry point.
 
+import { readFileSync } from "node:fs";
+import { fileURLToPath } from "node:url";
+import { dirname, join } from "node:path";
+
 import { Command } from "commander";
 import { runInit } from "./commands/init.js";
 import { runLogin } from "./commands/login.js";
 import { runStatus } from "./commands/status.js";
 import { runMcp } from "./commands/mcp.js";
 import { runProjectCreate, runProjectUse } from "./commands/project.js";
+
+// Read the real package version at runtime so `oth --version` always
+// matches the installed package (instead of a hardcoded literal that
+// drifts every release).
+function readPackageVersion(): string {
+  try {
+    const here = dirname(fileURLToPath(import.meta.url));
+    // dist/index.js → ../package.json
+    const pkgPath = join(here, "..", "package.json");
+    const pkg = JSON.parse(readFileSync(pkgPath, "utf8")) as { version?: string };
+    return pkg.version ?? "0.0.0";
+  } catch {
+    return "0.0.0";
+  }
+}
 
 interface GlobalOpts {
   apiBase?: string;
@@ -28,7 +47,7 @@ const program = new Command();
 program
   .name("oth")
   .description("Connect your repo to OTHCanva and run the MCP server.")
-  .version("0.1.0")
+  .version(readPackageVersion())
   .option(
     "--api-base <url>",
     "Override the OTHCanva API base URL (default: https://canva.oth.zone or $OTH_API_BASE)",
