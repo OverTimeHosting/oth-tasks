@@ -1,5 +1,8 @@
 // `oth init` — onboard the current git repo into OTHCanva.
 
+import { existsSync } from "node:fs";
+import { join } from "node:path";
+
 import { getGitInfo } from "../lib/git.js";
 import {
   connectPoll,
@@ -8,6 +11,7 @@ import {
   type ConnectPollResponse,
 } from "../lib/api.js";
 import {
+  REPO_CONFIG_FILENAME,
   upsertToken,
   writeRepoConfig,
 } from "../lib/config.js";
@@ -16,6 +20,7 @@ import { openBrowser } from "../lib/open-browser.js";
 
 export interface InitOptions {
   apiBase?: string;
+  force?: boolean;
 }
 
 const POLL_INTERVAL_MS = 2000;
@@ -31,6 +36,21 @@ export async function runInit(opts: InitOptions): Promise<void> {
   const git = await getGitInfo(process.cwd());
   if (!git) {
     console.error("Run this inside a git repository.");
+    process.exitCode = 1;
+    return;
+  }
+
+  // Guard: refuse to re-init a repo that's already connected. Otherwise
+  // every accidental `oth init` mints a brand-new project on the server.
+  const existingConfig = join(git.repoRoot, REPO_CONFIG_FILENAME);
+  if (existsSync(existingConfig) && !opts.force) {
+    console.error(`This repo is already connected (${REPO_CONFIG_FILENAME} exists).`);
+    console.error("");
+    console.error("Options:");
+    console.error("  • `oth login`              refresh the token without creating a new project");
+    console.error("  • `oth project use <id>`   point this repo at a different existing project");
+    console.error("  • `oth status`             see what's currently linked");
+    console.error("  • `oth init --force`       wipe and re-link (creates a new project)");
     process.exitCode = 1;
     return;
   }

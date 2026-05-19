@@ -56,8 +56,9 @@ program
 program
   .command("init")
   .description("Connect the current repo to OTHCanva.")
-  .action(async (_args, cmd: Command) => {
-    await runInit(globalOpts(cmd));
+  .option("--force", "Re-link even if .othcanva.json already exists")
+  .action(async (args: { force?: boolean }, cmd: Command) => {
+    await runInit({ ...globalOpts(cmd), force: args.force });
   });
 
 program
