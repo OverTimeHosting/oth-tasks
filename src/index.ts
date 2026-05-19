@@ -50,7 +50,7 @@ program
   .version(readPackageVersion())
   .option(
     "--api-base <url>",
-    "Override the OTHCanva API base URL (default: https://canva.oth.zone or $OTH_API_BASE)",
+    "Override the OTHCanva API base URL (default: https://canva-app.oth.zone or $OTH_API_BASE)",
   );
 
 program
