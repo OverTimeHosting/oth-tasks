@@ -1,5 +1,5 @@
-// `oth project create <name>` / `oth project use <id>` — manage which OTH
-// project this repo is bound to.
+// `othcanva project create <name>` / `othcanva project use <id>` —
+// manage which OTH project this repo is bound to.
 
 import { getGitInfo } from "../lib/git.js";
 import {
@@ -37,10 +37,10 @@ export async function runProjectCreate(
     DEFAULT_API_BASE;
 
   // Need an existing token to call /v1/projects. If the repo isn't connected
-  // yet, point the user at `oth init` instead.
+  // yet, point the user at `othcanva init` instead.
   if (!repoCfg) {
     console.error(
-      "This repo isn't connected yet. Run `oth init` first, then `oth project create` if you want a second project.",
+      "This repo isn't connected yet. Run `othcanva init` first, then `othcanva project create` if you want a second project.",
     );
     process.exitCode = 1;
     return;
@@ -48,7 +48,7 @@ export async function runProjectCreate(
 
   const stored = await getToken(repoCfg.projectId);
   if (!stored) {
-    console.error("No credential available. Run `oth login`.");
+    console.error("No credential available. Run `othcanva login`.");
     process.exitCode = 1;
     return;
   }
@@ -108,7 +108,7 @@ export async function runProjectUse(
     }
   } else {
     console.error(
-      `Note: no token stored for ${projectId}. You'll need to \`oth login\` after switching.`,
+      `Note: no token stored for ${projectId}. You'll need to \`othcanva login\` after switching.`,
     );
   }
 

@@ -1,4 +1,4 @@
-// `oth status` — quick health-check of the current repo's OTH connection.
+// `othcanva status` — quick health-check of the current repo's OTH connection.
 
 import { getGitInfo } from "../lib/git.js";
 import {
@@ -23,7 +23,7 @@ export async function runStatus(opts: StatusOptions): Promise<void> {
 
   const repoCfg = await readRepoConfig(git.repoRoot);
   if (!repoCfg) {
-    console.error("Not connected. Run `oth init`.");
+    console.error("Not connected. Run `othcanva init`.");
     process.exitCode = 1;
     return;
   }
@@ -34,7 +34,7 @@ export async function runStatus(opts: StatusOptions): Promise<void> {
   const stored = await getToken(repoCfg.projectId);
   if (!stored) {
     console.error(
-      `No credential for project ${repoCfg.projectId}. Run \`oth login\`.`,
+      `No credential for project ${repoCfg.projectId}. Run \`othcanva login\`.`,
     );
     process.exitCode = 1;
     return;

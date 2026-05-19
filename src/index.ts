@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// oth-tasks — CLI entry point.
+// othcanva — CLI entry point.
 
 import { readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
@@ -12,7 +12,7 @@ import { runStatus } from "./commands/status.js";
 import { runMcp } from "./commands/mcp.js";
 import { runProjectCreate, runProjectUse } from "./commands/project.js";
 
-// Read the real package version at runtime so `oth --version` always
+// Read the real package version at runtime so `othcanva --version` always
 // matches the installed package (instead of a hardcoded literal that
 // drifts every release).
 function readPackageVersion(): string {
@@ -45,7 +45,7 @@ function globalOpts(cmd: Command): GlobalOpts {
 const program = new Command();
 
 program
-  .name("oth")
+  .name("othcanva")
   .description("Connect your repo to OTHCanva and run the MCP server.")
   .version(readPackageVersion())
   .option(

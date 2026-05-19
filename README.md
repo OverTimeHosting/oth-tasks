@@ -1,23 +1,25 @@
-# oth-tasks
+# othcanva
 
 CLI + MCP server that connects a GitHub repo to **[OTHCanva](https://github.com/OverTimeHosting/OTHCanva)**, OverTimeHosting's internal task tracker, and exposes task tools to AI agents over MCP.
 
 Run it once in any repo your AI assistants work in, and the agent can create tasks, log bugs, update statuses, and add comments — all attributed back to itself.
 
+> Renamed from `oth-tasks` in v0.2.0 so the `oth` namespace stays free for other tools. If you have the old package installed, run `npm uninstall -g oth-tasks` and reinstall as `othcanva`.
+
 ## Install
 
 ```sh
 # global (recommended for dev)
-npm install -g oth-tasks
+npm install -g othcanva
 # or run on demand
-npx oth-tasks init
+npx othcanva init
 ```
 
 ## Quick start
 
 ```sh
 cd ~/code/my-repo
-oth init
+othcanva init
 # → opens browser, you sign in to OTHCanva, pick or create a project, approve
 # → writes .othcanva.json in the repo and a per-user token to ~/.othcanva/
 # → patches .mcp.json so Claude Code/Desktop loads the MCP server
@@ -27,19 +29,19 @@ Then in the same repo:
 
 ```sh
 claude
-# → the `oth-tasks` MCP server appears with 12 tools
+# → the `othcanva` MCP server appears with 12 tools
 ```
 
 ## Commands
 
 | Command | What it does |
 |---|---|
-| `oth init` | Connect this repo. Browser-flow auth, writes configs, patches `.mcp.json`. |
-| `oth login` | Refresh the token for an already-connected repo. |
-| `oth status` | Show current project + token age + last-used. |
-| `oth mcp` | Run the bundled MCP server over stdio (this is what `.mcp.json` invokes). |
-| `oth project create <name>` | Create a new project and switch this repo to it. |
-| `oth project use <id>` | Point this repo at an existing project. |
+| `othcanva init` | Connect this repo. Browser-flow auth, writes configs, patches `.mcp.json`. Refuses to re-run on an already-connected repo unless `--force` is passed. |
+| `othcanva login` | Refresh the token for an already-connected repo. |
+| `othcanva status` | Show current project + token age + last-used. |
+| `othcanva mcp` | Run the bundled MCP server over stdio (this is what `.mcp.json` invokes). |
+| `othcanva project create <name>` | Create a new project and switch this repo to it. |
+| `othcanva project use <id>` | Point this repo at an existing project. |
 
 Override the API URL with `--api-base <url>` or `OTH_API_BASE=…`.
 
@@ -54,7 +56,7 @@ Once connected, the agent has access to these stdio-served tools (zod-validated 
 ```
 <repo>/.othcanva.json           # { projectId, apiBase } — safe to commit
 ~/.othcanva/credentials.json    # { tokens: { <projectId>: { value, createdAt } } } — never commit
-<repo>/.mcp.json                # gets an "oth-tasks" entry added
+<repo>/.mcp.json                # gets an "othcanva" entry added (and any legacy "oth-tasks" entry removed)
 ```
 
 ## License

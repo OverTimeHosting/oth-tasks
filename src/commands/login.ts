@@ -1,5 +1,6 @@
-// `oth login` — refresh the token for the already-linked project. Same OAuth-
-// like dance as `init`, but skips project creation by reusing .othcanva.json.
+// `othcanva login` — refresh the token for the already-linked project.
+// Same OAuth-like dance as `init`, but skips project creation by reusing
+// .othcanva.json.
 
 import { getGitInfo } from "../lib/git.js";
 import {
@@ -32,7 +33,7 @@ export async function runLogin(opts: LoginOptions): Promise<void> {
   const repoCfg = await readRepoConfig(git.repoRoot);
   if (!repoCfg) {
     console.error(
-      "No .othcanva.json found in this repo. Run `oth init` first.",
+      "No .othcanva.json found in this repo. Run `othcanva init` first.",
     );
     process.exitCode = 1;
     return;
@@ -61,7 +62,7 @@ export async function runLogin(opts: LoginOptions): Promise<void> {
       break;
     }
     if (poll.status === "expired") {
-      console.error("Authorization code expired. Run `oth login` again.");
+      console.error("Authorization code expired. Run `othcanva login` again.");
       process.exitCode = 1;
       return;
     }

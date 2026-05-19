@@ -1,5 +1,5 @@
 // MCP server entry. Exported as `startMcpServer` so the CLI can invoke it
-// in-process via `oth mcp`. Also runnable directly (the `oth-mcp` bin).
+// in-process via `othcanva mcp`. Also runnable directly (the `othcanva-mcp` bin).
 
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
@@ -19,7 +19,7 @@ export async function startMcpServer(): Promise<void> {
   }
 
   const server = new McpServer({
-    name: "oth-tasks",
+    name: "othcanva",
     version: "0.1.0",
   });
 

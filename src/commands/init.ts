@@ -1,4 +1,4 @@
-// `oth init` — onboard the current git repo into OTHCanva.
+// `othcanva init` — onboard the current git repo into OTHCanva.
 
 import { existsSync } from "node:fs";
 import { join } from "node:path";
@@ -41,16 +41,16 @@ export async function runInit(opts: InitOptions): Promise<void> {
   }
 
   // Guard: refuse to re-init a repo that's already connected. Otherwise
-  // every accidental `oth init` mints a brand-new project on the server.
+  // every accidental `othcanva init` mints a brand-new project on the server.
   const existingConfig = join(git.repoRoot, REPO_CONFIG_FILENAME);
   if (existsSync(existingConfig) && !opts.force) {
     console.error(`This repo is already connected (${REPO_CONFIG_FILENAME} exists).`);
     console.error("");
     console.error("Options:");
-    console.error("  • `oth login`              refresh the token without creating a new project");
-    console.error("  • `oth project use <id>`   point this repo at a different existing project");
-    console.error("  • `oth status`             see what's currently linked");
-    console.error("  • `oth init --force`       wipe and re-link (creates a new project)");
+    console.error("  • `othcanva login`              refresh the token without creating a new project");
+    console.error("  • `othcanva project use <id>`   point this repo at a different existing project");
+    console.error("  • `othcanva status`             see what's currently linked");
+    console.error("  • `othcanva init --force`       wipe and re-link (creates a new project)");
     process.exitCode = 1;
     return;
   }
@@ -80,7 +80,7 @@ export async function runInit(opts: InitOptions): Promise<void> {
       break;
     }
     if (poll.status === "expired") {
-      console.error("Authorization code expired. Run `oth init` again.");
+      console.error("Authorization code expired. Run `othcanva init` again.");
       process.exitCode = 1;
       return;
     }
@@ -88,7 +88,7 @@ export async function runInit(opts: InitOptions): Promise<void> {
   }
 
   if (!result || result.status !== "authorized") {
-    console.error("Authorization timed out. Run `oth init` again.");
+    console.error("Authorization timed out. Run `othcanva init` again.");
     process.exitCode = 1;
     return;
   }
@@ -110,6 +110,6 @@ export async function runInit(opts: InitOptions): Promise<void> {
   await patchMcpConfig(git.repoRoot);
 
   console.log(
-    `Connected ${result.projectName}. Run \`claude\` and tools will be available.`,
+    `Connected ${result.projectName}. Run \`claude\` and OTHCanva tools will be available.`,
   );
 }

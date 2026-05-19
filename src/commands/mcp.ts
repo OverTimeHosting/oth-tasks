@@ -1,4 +1,4 @@
-// `oth mcp` — run the bundled MCP server in-process over stdio.
+// `othcanva mcp` — run the bundled MCP server in-process over stdio.
 
 import { startMcpServer } from "../mcp/server.js";
 

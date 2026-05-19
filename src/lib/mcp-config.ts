@@ -4,7 +4,11 @@
 import { promises as fs } from "node:fs";
 import * as path from "node:path";
 
-export const MCP_SERVER_KEY = "oth-tasks";
+export const MCP_SERVER_KEY = "othcanva";
+// Old key from the `oth-tasks`-named release. patchMcpConfig clears
+// this on write so users upgrading from 0.1.x don't end up with two
+// entries pointing at the same server.
+const LEGACY_KEYS = ["oth-tasks"];
 
 export interface McpServerEntry {
   command: string;
@@ -34,12 +38,13 @@ export async function patchMcpConfig(repoRoot: string): Promise<void> {
   const servers = existing.mcpServers ?? {};
 
   // Resolve the MCP server through npx so the entry works on any machine
-  // that has the published `oth-tasks` package available — no global install
+  // that has the published `othcanva` package available — no global install
   // required. `-y` auto-accepts the package fetch prompt.
   servers[MCP_SERVER_KEY] = {
     command: "npx",
-    args: ["-y", "oth-tasks", "mcp"],
+    args: ["-y", "othcanva", "mcp"],
   };
+  for (const k of LEGACY_KEYS) delete servers[k];
 
   const next: McpConfigFile = {
     ...existing,
