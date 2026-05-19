@@ -21,3 +21,5 @@ Thumbs.db
 .env
 .env.local
 .othcanva/
+.npmrc
+.npmrc.local
