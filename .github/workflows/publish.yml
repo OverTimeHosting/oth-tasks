@@ -11,11 +11,9 @@ jobs:
   publish:
     runs-on: ubuntu-latest
 
-    # Required for npm provenance attestation ("Built and signed by GitHub Actions"
-    # shows up next to the version on npmjs.com).
     permissions:
       contents: read
-      id-token: write
+      # id-token: write was only needed when --provenance was on.
 
     steps:
       - uses: actions/checkout@v4
@@ -44,6 +42,10 @@ jobs:
           fi
           echo "Publishing $PKG_VERSION"
 
-      - run: npm publish --provenance --access public
+      # No `--provenance` — that requires the npm token to support
+      # sigstore attestation, which Granular tokens don't always do.
+      # Re-add once we switch to an OIDC-trusted publisher or an
+      # Automation token that supports signing.
+      - run: npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
